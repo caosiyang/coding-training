@@ -22,7 +22,7 @@ void swap(int *m, int *n) {
 
 int* gen_nums(size_t count, size_t range = 0) {
 	assert(count > 0);
-    srand(time(NULL));
+	srand(time(NULL));
 	int *nums = new int[count];
 	if (range != 0) {
 		for (int i = 0; i < count; ++i) {
@@ -45,44 +45,44 @@ int* gen_nums(size_t count, size_t range = 0) {
 // ascending order
 template <typename T>
 int asc(T a, T b) {
-    if (a > b) {
-        return 1;
-    } else if (a < b) {
-        return -1;
-    } else {
-        return 0;
-    }
+	if (a > b) {
+		return 1;
+	} else if (a < b) {
+		return -1;
+	} else {
+		return 0;
+	}
 }
 
 // descending order
 template <typename T>
 int desc(T a, T b) {
-    if (a > b) {
-        return -1;
-    } else if (a < b) {
-        return 1;
-    } else {
-        return 0;
-    }
+	if (a > b) {
+		return -1;
+	} else if (a < b) {
+		return 1;
+	} else {
+		return 0;
+	}
 }
 
 template <typename T>
 bool validate_order(T *start, T *end, int (*cmp)(T a, T b)) {
-    int *p = start;
-    while (p < end) {
-        if (cmp(*(p + 1), *p) < 0) {
-            return false;
-        }
-        ++p;
-    }
-    return true;
+	int *p = start;
+	while (p < end) {
+		if (cmp(*(p + 1), *p) < 0) {
+			return false;
+		}
+		++p;
+	}
+	return true;
 }
 
 template <typename T>
 std::string to_string(const T *start, int count) {
-    std::stringstream ss;
-    for (int i = 0; i < count; ++i) {
-        ss << *(start + i) << ", ";
-    }
-    return ss.str();
+	std::stringstream ss;
+	for (int i = 0; i < count; ++i) {
+		ss << *(start + i) << ", ";
+	}
+	return ss.str();
 }
