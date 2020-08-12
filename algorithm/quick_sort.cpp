@@ -1,60 +1,55 @@
-#include <stdlib.h>
+#include <cassert>
 #include <iostream>
-#include "../util/util.h"
+#include "../util/common.h"
+#include "../util/timer.h"
 
-void qsort(int *start, int *end) {
-    if (!(start && end && end > start)) {
+void quick_sort(int *low, int *high) {
+    if (!(low && high && high > low)) {
         return;
     }
-    int sentinel = *start;
-    int *p1, *p2;
-    for (p1 = start + 1, p2 = end; p1 <= p2; ) {
-        if (*p1 >= sentinel && *p2 < sentinel) {
-            *p1 = *p1 + *p2;
-            *p2 = *p1 - *p2;
-            *p1 = *p1 - *p2;
+
+    int pivot = *low;
+    int *p1 = low + 1, *p2 = high;
+    while (p1 <= p2) {
+        if (*p1 > pivot && *p2 <= pivot) {
+			swap(p1, p2);
             ++p1;
             --p2;
         } else {
-            if (*p1 < sentinel) ++p1;
-            if (*p2 >= sentinel) --p2;
+            if (*p1 <= pivot) ++p1;
+            if (*p2 > pivot) --p2;
         }
     }
 
-    *start = *(p1-1);
-    *(p1-1) = sentinel;
+	int *p = p1 - 1;
+	swap(low, p);
 
-    qsort(start, p1-2);
-    qsort(p1, end);
+    quick_sort(low, p - 1);
+    quick_sort(p + 1, high);
 }
 
 int main(int argc, char **argv) {
-    int total = 40;
-    int range = 1000;
-    if (argc > 1) {
-        total = atoi(argv[1]);
+    int count = 10;
+	if (argc > 1) {
+        count = atoi(argv[1]);
     }
+	int *nums = gen_nums(count, 1000);
 
-    int nums[total] = {0};
-    srand(time(NULL));
-    for (int i = 0; i < total; ++i) {
-        nums[i] = rand() % range;
-    }
-
+	std::cout << "Quick Sort" << std::endl;
     std::cout << "input:" << std::endl;
-    std::cout << output(nums, total) << std::endl;
+    std::cout << to_string(nums, count) << std::endl;
 
     Timer::Start();
-    qsort(nums, nums + total - 1);
+    quick_sort(nums, nums + count - 1);
     Timer::End();
 
     std::cout << "output:" << std::endl;
-    std::cout << output(nums, total) << std::endl;
+    std::cout << to_string(nums, count) << std::endl;
 
-    if (valid(nums, nums + total - 1, asc)) {
-        std::cout << "pass: " << Timer::Delta() <<std::endl;
+    if (validate_order(nums, nums + count - 1, asc)) {
+        std::cout << "PASS in " << Timer::Delta() <<std::endl;
     } else {
-        std::cout << "error" << std::endl;
+        std::cout << "ERROR" << std::endl;
     }
     return 0;
 }
