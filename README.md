@@ -1,7 +1,13 @@
-# Coding-training
+# Coding training
 
-Data Structures
+## Data structures
 
-Algorithms
+## Algorithms
 
+- Bubble Sort
+- Selection Sort
+- Insertion Sort
+- Shell Sort
+- Merge Sort
 - Quick Sort
+- Heap Sort

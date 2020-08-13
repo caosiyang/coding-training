@@ -45,9 +45,9 @@ int* gen_nums(size_t count, size_t range = 0) {
 // ascending order
 template <typename T>
 int asc(T a, T b) {
-	if (a > b) {
+	if (a < b) {
 		return 1;
-	} else if (a < b) {
+	} else if (a > b) {
 		return -1;
 	} else {
 		return 0;
@@ -58,24 +58,29 @@ int asc(T a, T b) {
 template <typename T>
 int desc(T a, T b) {
 	if (a > b) {
-		return -1;
-	} else if (a < b) {
 		return 1;
+	} else if (a < b) {
+		return -1;
 	} else {
 		return 0;
 	}
 }
 
 template <typename T>
-bool validate_order(T *start, T *end, int (*cmp)(T a, T b)) {
+bool valid_order(T *start, T *end, int (*cmp)(T a, T b)) {
 	int *p = start;
 	while (p < end) {
-		if (cmp(*(p + 1), *p) < 0) {
+		if (cmp(*p, *(p + 1)) < 0) {
 			return false;
 		}
 		++p;
 	}
 	return true;
+}
+
+template <typename T>
+bool valid_order(T *array, size_t count, int (*cmp)(T a, T b)) {
+	return valid_order(array, array + count - 1, cmp);
 }
 
 template <typename T>

@@ -1,6 +1,8 @@
 #pragma once
 
 #include <time.h>
+#include <chrono>
+#include <iostream>
 #include <string>
 #include <sstream>
 
@@ -28,3 +30,15 @@ private:
 
 struct timespec Timer::ts_start = {0, 0};
 struct timespec Timer::ts_end = {0, 0};
+
+static std::chrono::steady_clock::time_point t1, t2;
+
+void time_stat_start() {
+	t1 = std::chrono::steady_clock::now();
+}
+
+void time_stat_end() {
+	t2 = std::chrono::steady_clock::now();
+	std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(t2 - t1);
+	std::cout << "time used: " << time_span.count() << std::endl;
+}
