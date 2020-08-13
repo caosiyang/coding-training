@@ -2,6 +2,10 @@
 
 ## Data structures
 
+- Binary Search Tree
+- AVL Tree
+- Red Black Tree (without deletion)
+
 ## Algorithms
 
 - Bubble Sort

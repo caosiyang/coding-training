@@ -30,7 +30,7 @@ int* gen_nums(size_t count, size_t range = 0) {
 		}
 	} else {
 		std::vector<int> vec;
-		for (int i = 0; i < count; ++i) {
+		for (int i = 1; i <= count; ++i) {
 			vec.push_back(i);
 		}
 		for (int *p = nums; p < nums + count; ++p) {
